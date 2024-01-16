@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Contests</title>
+</head>
+<body>
+    <h1>Upcoming Contests</h1>
+    <ul>
+        {% for contest in contests %}
+            <li>
+                {{ contest.name }} - 
+                {{ contest.startTimeSeconds|timestamp_to_datetime|date("Y-m-d H:i:s") }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

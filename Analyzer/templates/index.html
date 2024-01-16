@@ -1,0 +1,40 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Data Analyzer</title>
+</head>
+<body>
+    <h1>User Data Analyzer</h1>
+
+    <form method="post" action="/">
+        <label for="username">Enter your Codeforces username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <button type="submit">Get Info</button>
+    </form>
+
+    <form method="post" action="/compare" id="compareForm" style="display: none;">
+        <label for="username1">Enter your Codeforces username:</label>
+        <input type="text" id="username1" name="username1" required>
+
+        <label for="username2">Enter the second Codeforces username to compare:</label>
+        <input type="text" id="username2" name="username2" required>
+
+        <button type="submit">Compare</button>
+    </form>
+
+    <button type="button" onclick="toggleCompareForm()">Compare Users</button>
+
+    <script>
+        function toggleCompareForm() {
+            var compareForm = document.getElementById("compareForm");
+            compareForm.style.display = (compareForm.style.display === "none") ? "block" : "none";
+        }
+    </script>
+</body>
+</html>
