@@ -1,0 +1,28 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Data Analyzer - Comparison Results</title>
+</head>
+<body>
+    <h1>Comparison Results</h1>
+
+    <h2>{{ user_info1.handle }} vs {{ user_info2.handle }}</h2>
+
+    <h3>User 1 - {{ user_info1.handle }}</h3>
+    <p>Rating: {{ rating1 }}</p>
+    <p>Submissions: {{ count1 }}</p>
+    <p>Correct Answers: {{ correct_answers1 }}</p>
+    <p>Wrong Answers: {{ wrong_answers1 }}</p>
+
+    <h3>User 2 - {{ user_info2.handle }}</h3>
+    <p>Rating: {{ rating2 }}</p>
+    <p>Submissions: {{ count2 }}</p>
+    <p>Correct Answers: {{ correct_answers2 }}</p>
+    <p>Wrong Answers: {{ wrong_answers2 }}</p>
+</body>
+</html>
