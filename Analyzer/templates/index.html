@@ -1,0 +1,55 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script>
+              // Add this script to your existing JavaScript
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("loader").style.display = "none";
+        });
+
+        window.addEventListener('beforeunload', function () {
+            document.getElementById("loader").style.display = "flex";
+        });
+
+        window.addEventListener("load", function () {
+            document.getElementById("loader").style.display = "none";
+        });
+
+    </script>
+
+    <title>Codeforces User Analyzer</title>
+</head>
+<body>
+  {% include 'loader.html' %}
+    <div class="head">
+        <h1>Codeforces Analyzer</h1>
+    </div>
+    <main>
+        <header>
+            <h1>Login</h1>
+        </header>
+  <div class="wrapper">  
+    
+    <form method="post" action="/">
+    <div class="input-box">
+        <label for="username"></label>
+        
+        <input type="text" id="username" name="username" placeholder="Codeforces Username" required>
+        <i class="material-icons">person</i>
+      </div>
+        
+        <button type="submit">Get Info</button>
+    </form>
+   
+  </div> 
+</main>
+</body>
+</html>

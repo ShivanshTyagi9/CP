@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style2.css">
+
+    <title>Codeforces Results</title>
+</head>
+<body>
+  {% if user_info %}
+  <div class="userinfo">
+
+
+        <div class="container">
+            <img class="img" src="images/cplogo.png" alt="">
+            <a class="name" href="result.html">CODE<span class="danger" style="color: blue;">FORCES</span> Analyzer</a>
+        </div>
+        <div class="user_info">
+            <h2>User Information</h2>
+            <img src="{{ user_info.profile_picture }}" alt="Profile Picture">
+            <p>Username: {{ user_info.handle }}</p>
+            <p>Rank: {{ user_info.rank }}</p>
+            <p>Rating: {{ user_info.rating }}</p>
+            <p>Max Rating: {{ user_info.maxRating }}</p>
+        </div>
+        <div class="ques">
+                <h2>Question Analysis</h2>
+                <p>Correct Answers: {{ correct_answers }}</p>
+                <p>Wrong Answers: {{ wrong_answers }}</p>
+                <p>͟R͟a͟t͟i͟n͟g͟|͟ ͟C͟o͟u͟n͟t͟|</p>
+            <ul>
+            {% for i in range(rating|length) %}
+                <li>{{ rating[i] }} | {{ count[i] }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="con_summ">
+            <h2>Contests Summary</h2>
+            
+            <p>Total Number of contests: {{ sub_info.total_contests }}</p>
+        </div>
+</div>
+
+  <div class="container">
+      <h2>Upcoming Contests</h2>
+      {% for contest in upcoming_contests %}
+          <p>{{ contest.name }} - {{ contest.startTimeSeconds|timestamp_to_datetime }}</p>
+          <h3><a href="https://codeforces.com/contestRegistration/{{contest.id}}" target="_blank">#</a></h3>
+      {% endfor %}
+  </div>
+
+  <div class="contest_data">
+      <h2>All Contest Data</h2>
+      
+      <div class="contest_list">
+      {% for contest_info in contest_data[:-1] %}
+          <p>Contest ID: {{ contest_info.contestId }}</p>
+          <p>Contest Name: {{ contest_info.contestName }}</p>
+          
+          <p>Contest Rank: {{ contest_info.rank }}</p>
+          <p>New Rating: {{ contest_info.newRating }}</p>
+          <p>Change: {{ contest_info.change }}</p>
+      {% endfor %}
+    </div>
+  </div>
+
+
+  
+
+ <!-- <div class="weak_topic">
+    {% for problem_id in unsolved_problems %}
+        {% set tags = problem_id.split('-') %}
+        <p>
+          <li>{{ tags }}</li>
+        </p> 
+    {% endfor %}
+  </div>
+-->
+<div class="unsolved">
+  {% if unsolved_problems %}
+      <div class="row z-depth-2" style="padding: 20px;">
+          <span style="color: #393939; font-weight: 500; font-size: 20px; margin-left: 50px;">Unsolved Problems</span>
+          <div class="horizontal-list">
+              {% for problem_id in unsolved_problems %}
+                  <a href="https://codeforces.com/problemset/problem/{{ problem_id.split('-')[0] }}/{{ problem_id.split('-')[1] }}" target="_blank" class="unsolved-problem">
+                      {{ problem_id }}
+                  </a>
+              {% endfor %}
+          </div>
+      </div>
+  {% endif %}
+</div>
+
+<h3>Weak Tags</h3>
+<ul>
+    {% for tag, problems in weak_tags.items() %}
+        <li>{{ tag }}:
+            <ul>
+                {% for problem in problems %}
+                    <li>
+                        <h3><a href="{{ problem.1 }}" class="problem" target="_blank">{{ problem.0 }}</a></h3>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>
+
+
+
+{% endif %}
+
+<form method="post" action="/random">
+  <label for="difficulty">Enter Difficulty Rating:</label>
+  <input type="number" name="difficulty" required>
+  <button type="submit">Submit</button>
+</form>
+
+<div class="random">
+  <!-- Add this block of code to display information about the random problem -->
+{% if random_problem %}
+<div class="row z-depth-2" style="padding: 20px;">
+    <span style="color: #393939; font-weight: 500; font-size: 20px; margin-left: 50px;">Random Problem</span>
+    <div class="col s12 m12 l12">
+        <p><strong>Contest ID:</strong> {{ random_problem.contestId }}</p>
+        <p><strong>Problem Index:</strong> {{ random_problem.problemIndex }}</p>
+        <p><strong>Name:</strong> {{ random_problem.name }}</p>
+        <p><strong>Difficulty Rating:</strong> {{ random_problem.rating }}</p>
+        <p><strong>Tags</strong> {{ random_problem.tags }}</p>
+        <p><strong>Link to Problem:</strong> <a href="https://codeforces.com/problemset/problem/{{ random_problem.contestId }}/{{ random_problem.problemIndex }}" target="_blank">Go to Problem</a></p>
+        <!-- You can customize the above lines based on the structure of the random_problem dictionary -->
+    </div>
+</div>
+{% endif %}
+
+</div>
+
+</body>
+</html>
