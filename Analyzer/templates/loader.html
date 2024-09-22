@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='loader.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <!-- loader.html -->
+<div id="loader" class="loader-container">
+    <div class="loader"></div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("loader").style.display = "none";
+    });
+
+    window.addEventListener('beforeunload', function () {
+        document.getElementById("loader").style.display = "flex";
+    });
+
+    window.addEventListener("load", function () {
+        document.getElementById("loader").style.display = "none";
+    });
+</script>
+</body>
+</html>
