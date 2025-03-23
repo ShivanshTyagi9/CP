@@ -1,6 +1,3 @@
-
----
-
 ### **1. Bubble Sort**
 ```java
 void bubbleSort(int[] arr) {
@@ -142,4 +139,231 @@ void bucketSort(float[] arr) {
 void swap(int[] arr, int i, int j) {
     int temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;
 }
+```
+
+## **Comparable and Comparator** 
+
+---
+
+### **1. Using `Comparable` (Default Sorting)**
+```java
+import java.util.*;
+
+class Student implements Comparable<Student> {
+    String name;
+    int age;
+
+    Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public int compareTo(Student s) { // Sort by age (default)
+        return this.age - s.age;
+    }
+
+    public String toString() {
+        return name + " (" + age + ")";
+    }
+
+    public static void main(String[] args) {
+        List<Student> students = Arrays.asList(
+            new Student("Alice", 22),
+            new Student("Bob", 20),
+            new Student("Charlie", 25)
+        );
+
+        Collections.sort(students); // Uses compareTo()
+        System.out.println(students);
+    }
+}
+```
+**Output:**
+```
+[Bob (20), Alice (22), Charlie (25)]
+```
+---
+### **2. Using `Comparator` (Custom Sorting)**
+```java
+import java.util.*;
+
+class Student {
+    String name;
+    int age;
+
+    Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String toString() {
+        return name + " (" + age + ")";
+    }
+
+    public static void main(String[] args) {
+        List<Student> students = Arrays.asList(
+            new Student("Alice", 22),
+            new Student("Bob", 20),
+            new Student("Charlie", 25)
+        );
+
+        // Sort by name using Comparator
+        students.sort(Comparator.comparing(s -> s.name));
+        System.out.println(students);
+    }
+}
+```
+**Output:**
+```
+[Alice (22), Bob (20), Charlie (25)]
+```
+
+---
+
+
+
+### **Key Differences:**
+- `Comparable`: Used when the **class itself** defines the default sorting order (`compareTo` method).
+- `Comparator`: Used when you **want multiple sorting criteria** (e.g., sort by name, age, etc.).
+
+# Stack 
+
+```java
+import java.util.*;
+
+public class StackExample {
+    public static void main(String[] args) {
+        Stack<Integer> stack = new Stack<>();
+
+        // Push elements
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+        System.out.println("Stack after pushes: " + stack); // [10, 20, 30]
+
+        // Peek top element
+        System.out.println("Top element: " + stack.peek()); // 30
+
+        // Pop elements
+        System.out.println("Popped: " + stack.pop()); // 30
+        System.out.println("Stack after pop: " + stack); // [10, 20]
+
+        // Check if stack is empty
+        System.out.println("Is stack empty? " + stack.isEmpty()); // false
+
+        // Search for an element (returns position from top)
+        System.out.println("Position of 10: " + stack.search(10)); // 2 (1-based index)
+    }
+}
+```
+
+### **Output:**
+```
+Stack after pushes: [10, 20, 30]
+Top element: 30
+Popped: 30
+Stack after pop: [10, 20]
+Is stack empty? false
+Position of 10: 2
+```
+
+# **TreeSet Basics in Java** 🌳  
+
+---
+
+### ** Basic Operations with `TreeSet`**
+```java
+import java.util.*;
+
+public class TreeSetExample {
+    public static void main(String[] args) {
+        TreeSet<Integer> set = new TreeSet<>();
+
+        // Adding elements
+        set.add(30);
+        set.add(10);
+        set.add(20);
+        set.add(40);
+        set.add(10); // Duplicate (ignored)
+
+        System.out.println("TreeSet: " + set); // Output: [10, 20, 30, 40] (Sorted)
+
+        // Checking elements
+        System.out.println("Contains 20? " + set.contains(20)); // true
+
+        // Removing an element
+        set.remove(30);
+        System.out.println("After removing 30: " + set); // [10, 20, 40]
+
+        // Getting first and last element
+        System.out.println("First: " + set.first()); // 10
+        System.out.println("Last: " + set.last()); // 40
+
+        // Getting subset (headSet, tailSet, subSet)
+        System.out.println("Elements less than 30: " + set.headSet(30)); // [10, 20]
+        System.out.println("Elements greater than/equal to 20: " + set.tailSet(20)); // [20, 40]
+    }
+}
+```
+
+### **Expected Output** of the Given Code:
+```
+TreeSet: [10, 20, 30, 40]
+Contains 20? true
+After removing 30: [10, 20, 40]
+First: 10
+Last: 40
+Elements less than 30: [10, 20]
+Elements greater than/equal to 20: [20, 40]
+```
+
+# **Java `Map` Basics** 🗺️  
+
+A `Map` in Java is a **key-value pair** data structure where:  
+✅ Keys are **unique**  
+✅ Values can be **duplicate**  
+✅ Provides **fast lookup (O(1) for HashMap, O(log n) for TreeMap)**  
+
+---
+
+## **Basic `Map` Operations**
+```java
+import java.util.*;
+
+public class MapExample {
+    public static void main(String[] args) {
+        Map<Integer, String> map = new HashMap<>();
+
+        // Adding key-value pairs
+        map.put(1, "Apple");
+        map.put(2, "Banana");
+        map.put(3, "Cherry");
+
+        // Retrieving a value
+        System.out.println("Value for key 2: " + map.get(2)); // Banana
+
+        // Checking if key or value exists
+        System.out.println("Contains key 3? " + map.containsKey(3)); // true
+        System.out.println("Contains value 'Apple'? " + map.containsValue("Apple")); // true
+
+        // Removing a key
+        map.remove(1);
+        System.out.println("After removing key 1: " + map); // {2=Banana, 3=Cherry}
+
+        // Iterating through keys and values
+        for (Map.Entry<Integer, String> entry : map.entrySet()) {
+            System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+        }
+    }
+}
+```
+
+### **Expected Output:**
+```
+Value for key 2: Banana
+Contains key 3? true
+Contains value 'Apple'? true
+After removing key 1: {2=Banana, 3=Cherry}
+Key: 2, Value: Banana
+Key: 3, Value: Cherry
 ```
